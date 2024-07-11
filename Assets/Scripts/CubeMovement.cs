@@ -10,6 +10,7 @@ public class CubeMovement : MonoBehaviour
     public Rigidbody playerRb;
     private float horizontalInput;
     private float forwardInput;
+    public bool isOnGround = true;
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +30,11 @@ public class CubeMovement : MonoBehaviour
         transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
 
         // jump the player
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
             // Vector3.up means (0,1,0): means jump up 1 unit (towards y)
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
         }
     }
  
