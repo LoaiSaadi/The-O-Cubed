@@ -36,6 +36,7 @@ public class ChangeCharacter : MonoBehaviour
 }*/
 
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,6 +46,9 @@ public class ChangeCharacter : MonoBehaviour
     public GameObject cube; // Reference to the cube
     public GameObject sphere; // Reference to the sphere
     public GameObject octahedron; // Reference to the octahedron
+    public GameObject tetraehdron; // Reference to the tetraehdron
+    public GameObject dodecahedron; // Reference to the dodecahedron
+    public GameObject icosahedron; // Reference to the icosahedron
     public float timeToChange = 5.0f; // Time in seconds to change the character
 
     void Start()
@@ -52,6 +56,9 @@ public class ChangeCharacter : MonoBehaviour
         // Ensure the sphere and octahedron are inactive at the start
         sphere.SetActive(false);
         octahedron.SetActive(false);
+        tetraehdron.SetActive(false);
+        dodecahedron.SetActive(false);
+        icosahedron.SetActive(false);
 
         // Start the coroutine to change the character
         StartCoroutine(ChangeCharacterSequence());
@@ -59,11 +66,23 @@ public class ChangeCharacter : MonoBehaviour
 
     IEnumerator ChangeCharacterSequence()
     {
-        // Change from cube to sphere
+        /*// Change from cube to sphere
         yield return ChangeCharacterFromTo(cube, sphere, timeToChange);
 
         // Change from sphere to octahedron
-        yield return ChangeCharacterFromTo(sphere, octahedron, timeToChange);
+        yield return ChangeCharacterFromTo(sphere, octahedron, timeToChange);*/
+
+        // Change from cube to octahedron
+        yield return ChangeCharacterFromTo(cube, octahedron, timeToChange);
+
+        // Change from octahedron to tetraehdron
+        yield return ChangeCharacterFromTo(octahedron, tetraehdron, timeToChange);
+
+        // Change from tetraehdron to dodecahedron
+        yield return ChangeCharacterFromTo(tetraehdron, dodecahedron, timeToChange);
+
+        // Change from dodecahedron to icosahedron
+        yield return ChangeCharacterFromTo(dodecahedron, icosahedron, timeToChange);
     }
 
     IEnumerator ChangeCharacterFromTo(GameObject from, GameObject to, float time)
@@ -78,5 +97,9 @@ public class ChangeCharacter : MonoBehaviour
         // Optional: transfer the position and rotation of the current object to the new object
         to.transform.position = from.transform.position;
         to.transform.rotation = from.transform.rotation;
+
+        // Print a message indicating the change
+        Debug.Log($"Changed from {from.name} to {to.name}");
+
     }
 }
